@@ -14,4 +14,12 @@ public class DotLocation {
     public int getY() {
         return y;
     }
+
+    @Override
+    public String toString() {
+        return "DotLocation{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }
