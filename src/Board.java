@@ -29,10 +29,10 @@ public class Board extends JComponent implements KeyListener {
         ArrayList<SnakePiece> snakePieces = new ArrayList<>();
 
         for (int i = 0; i < BODY_SIZE; i++) {
-            snakePieces.add(new SnakePiece(boardSize / 2 - (OFFSET * i), boardSize / 2, SnakeDirection.RIGHT));
+            snakePieces.add(new SnakePiece(boardSize / 2 - (OFFSET * i), boardSize / 2));
         }
 
-        this.snake = new Snake(size / 2, size / 2, size, boardSize, snakePieces, dotsLocation);
+        this.snake = new Snake(size / 2, size / 2, snakePieces, dotsLocation, SnakeDirection.RIGHT);
 
         Thread animationThread = new Thread(new Runnable() {
             public void run() {
@@ -40,6 +40,7 @@ public class Board extends JComponent implements KeyListener {
                     repaint();
                     try {Thread.sleep(20);} catch (Exception ex) {}
                 }
+                // snake.getNumApples();
             }
         });
 
@@ -69,9 +70,9 @@ public class Board extends JComponent implements KeyListener {
 
     private void updateDirection(ArrayList<SnakePiece> snakePieces) {
         for (int i = 0; i < snakePieces.size() - 1; i++) {
-            SnakeDirection direction = snakePieces.get(i).getDirection();
-            if (direction != snakePieces.get(i + 1).getDirection()) {
-                snakePieces.get(i + 1).setDirection(direction);
+            SnakeDirection direction = snake.getDirection();
+            if (direction != snake.getDirection()) {
+                snake.setDirection(direction);
                 return;
             }
         }
@@ -81,13 +82,9 @@ public class Board extends JComponent implements KeyListener {
         if (snake.getX() > boardSize || snake.getX() < 0 || snake.getY() > boardSize || snake.getY() < 0) {
             isGameOver = true;
         }
+
+        isGameOver = snake.touchesItself();
         return isGameOver;
-    }
-
-    private void checkWalls() {
-        if (snake.getX() > boardSize) {
-
-        }
     }
 
     @Override
@@ -98,13 +95,13 @@ public class Board extends JComponent implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            snake.getSnakePieces().get(0).setDirection(SnakeDirection.RIGHT);
+            snake.setDirection(SnakeDirection.RIGHT);
         } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            snake.getSnakePieces().get(0).setDirection(SnakeDirection.LEFT);
+            snake.setDirection(SnakeDirection.LEFT);
         } else if (e.getKeyCode() == KeyEvent.VK_UP) {
-            snake.getSnakePieces().get(0).setDirection(SnakeDirection.UP);
+            snake.setDirection(SnakeDirection.UP);
         } else {
-            snake.getSnakePieces().get(0).setDirection(SnakeDirection.DOWN);
+            snake.setDirection(SnakeDirection.DOWN);
         }
     }
 

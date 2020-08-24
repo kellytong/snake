@@ -17,7 +17,17 @@ public class main {
         f.setSize(BOARD_SIZE,BOARD_SIZE);
         f.setResizable(false);
 
-        ArrayList<DotLocation>  dotsList = new ArrayList<>();
+        ArrayList<DotLocation> dotsList = new ArrayList<>();
+        makeDots(dotsList);
+
+        Board board = new Board(dotsList, BOARD_SIZE);
+        f.add(board);
+        // f.add();
+
+        f.setVisible(true);//making the frame visible
+    }
+
+    private static void makeDots(ArrayList<DotLocation> dots) {
         Random r = new Random();
 
         for (int i = 0; i < NUMBER_OF_DOTS; i++) {
@@ -31,13 +41,8 @@ public class main {
                 randomY = r.nextInt(BOARD_SIZE);
             }
 
-            dotsList.add(new DotLocation(randomX, randomY));
+            dots.add(new DotLocation(randomX, randomY));
             System.out.println("x:" + randomX + " y:" + randomY); // TODO delete
         }
-
-        Board board = new Board(dotsList, BOARD_SIZE);
-        f.add(board);
-
-        f.setVisible(true);//making the frame visible
     }
 }
