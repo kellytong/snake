@@ -2,8 +2,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Snake {
-    private int lastX;
-    private int lastY;
     private final int SPEED = 3;
     private final int BOARD_SIZE = 500;
     private ArrayList<SnakePiece> snakePieces;
@@ -15,21 +13,11 @@ public class Snake {
     private int numApples;
 
 
-    public Snake(int lastX, int lastY, ArrayList<SnakePiece> pieces, ArrayList<DotLocation> dots, SnakeDirection direction) {
-        this.lastX = lastX;
-        this.lastY = lastY;
+    public Snake(ArrayList<SnakePiece> pieces, ArrayList<DotLocation> dots, SnakeDirection direction) {
         this.snakePieces = pieces;
         this.dots = dots;
         this.snakeDirection = direction;
         numApples = 0;
-    }
-
-    public int getX() {
-        return lastX;
-    }
-
-    public int getY() {
-        return lastY;
     }
 
     public int getNumApples() {return numApples; }

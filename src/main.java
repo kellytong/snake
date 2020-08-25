@@ -7,6 +7,7 @@ public class main {
     private static final int BOARD_SIZE = 500;
     private static final Color BOARD_COLOR = Color.BLACK;
     private static final int NUMBER_OF_DOTS = 5;
+    protected static final int BORDER_OFFSET = 10;
 
     public static void main(String[] args) {
         System.out.println("Snake Game");
@@ -22,7 +23,6 @@ public class main {
 
         Board board = new Board(dotsList, BOARD_SIZE);
         f.add(board);
-        // f.add();
 
         f.setVisible(true);//making the frame visible
     }
@@ -31,14 +31,14 @@ public class main {
         Random r = new Random();
 
         for (int i = 0; i < NUMBER_OF_DOTS; i++) {
-            int randomX = r.nextInt(BOARD_SIZE);
-            while (randomX < 4 || randomX > BOARD_SIZE - 4) {
-                randomX = r.nextInt(BOARD_SIZE);
+            int randomX = r.nextInt(BOARD_SIZE - BORDER_OFFSET);
+            while (randomX < 4) {
+                randomX = r.nextInt(BOARD_SIZE - BORDER_OFFSET);
             }
-            int randomY = r.nextInt(BOARD_SIZE);
+            int randomY = r.nextInt(BOARD_SIZE - BORDER_OFFSET);
 
-            while (randomY < 4 || randomY > BOARD_SIZE - 4) {
-                randomY = r.nextInt(BOARD_SIZE);
+            while (randomY < 4) {
+                randomY = r.nextInt(BOARD_SIZE - BORDER_OFFSET);
             }
 
             dots.add(new DotLocation(randomX, randomY));

@@ -5,7 +5,6 @@ public class SnakePiece {
     public SnakePiece(int x, int y) {
         this.x = x;
         this.y = y;
-        //this.direction = direction;
     }
 
     public int getX() {

@@ -32,15 +32,15 @@ public class Board extends JComponent implements KeyListener {
             snakePieces.add(new SnakePiece(boardSize / 2 - (OFFSET * i), boardSize / 2));
         }
 
-        this.snake = new Snake(size / 2, size / 2, snakePieces, dotsLocation, SnakeDirection.RIGHT);
+        this.snake = new Snake(snakePieces, dotsLocation, SnakeDirection.RIGHT);
 
         Thread animationThread = new Thread(new Runnable() {
             public void run() {
-                while (!gameEnd()) {
+                while (!isGameOver) {
                     repaint();
+                    gameEnd();
                     try {Thread.sleep(20);} catch (Exception ex) {}
                 }
-                // snake.getNumApples();
             }
         });
 
@@ -49,22 +49,26 @@ public class Board extends JComponent implements KeyListener {
 
     @Override
     public void paintComponent(Graphics g) {
-        for (DotLocation location : this.dotsLocation) {
-            g.setColor(Color.RED);
-            g.drawOval(location.getX(), location.getY(), DOT_SIZE, DOT_SIZE);
-            g.fillOval(location.getX(), location.getY(), DOT_SIZE, DOT_SIZE);
+        if (isGameOver) {
+            g.setColor(Color.PINK);
+            g.drawString("Game Over -- Score: " + snake.getNumApples(), boardSize / 3, boardSize / 2);
+        } else {
+            for (DotLocation location : this.dotsLocation) {
+                g.setColor(Color.RED);
+                g.drawOval(location.getX(), location.getY(), DOT_SIZE, DOT_SIZE);
+                g.fillOval(location.getX(), location.getY(), DOT_SIZE, DOT_SIZE);
+            }
 
-        }
+            g.setColor(Color.GREEN);
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setStroke(new BasicStroke(10));
 
-        g.setColor(Color.GREEN);
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setStroke(new BasicStroke(10));
-
-        updateDirection(snake.getSnakePieces());
-        snake.moveSnake();
-        snake.eatApples();
-        for (SnakePiece piece : snake.getSnakePieces()) {
-            g.fillRect(piece.getX(), piece.getY(), DOT_SIZE, DOT_SIZE);
+            updateDirection(snake.getSnakePieces());
+            snake.moveSnake();
+            snake.eatApples();
+            for (SnakePiece piece : snake.getSnakePieces()) {
+                g.fillRect(piece.getX(), piece.getY(), DOT_SIZE, DOT_SIZE);
+            }
         }
     }
 
@@ -78,18 +82,20 @@ public class Board extends JComponent implements KeyListener {
         }
     }
 
-    private boolean gameEnd() {
-        if (snake.getX() > boardSize || snake.getX() < 0 || snake.getY() > boardSize || snake.getY() < 0) {
-            isGameOver = true;
-        }
+    private void gameEnd() {
+        SnakePiece snakeHead = snake.getSnakePieces().get(0);
 
-        isGameOver = snake.touchesItself();
-        return isGameOver;
+        if (snakeHead.getX() > boardSize - main.BORDER_OFFSET || snakeHead.getX() < 0
+                || snakeHead.getY() > boardSize - main.BORDER_OFFSET * 3 || snakeHead.getY() < 0) {
+            isGameOver = true;
+        } else {
+            isGameOver = snake.touchesItself();
+        }
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // do nothing
+
     }
 
     @Override
