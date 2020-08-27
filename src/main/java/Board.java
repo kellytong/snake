@@ -26,7 +26,7 @@ public class Board extends JComponent implements KeyListener {
         setOpaque(false);
 
         // create starting snake
-        ArrayList<SnakePiece> snakePieces = new ArrayList<>();
+        ArrayList<SnakePiece> snakePieces = new ArrayList<SnakePiece>();
 
         for (int i = 0; i < BODY_SIZE; i++) {
             snakePieces.add(new SnakePiece(boardSize / 2 - (OFFSET * i), boardSize / 2));
@@ -93,12 +93,10 @@ public class Board extends JComponent implements KeyListener {
         }
     }
 
-    @Override
     public void keyTyped(KeyEvent e) {
 
     }
 
-    @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             snake.setDirection(SnakeDirection.RIGHT);
@@ -111,7 +109,6 @@ public class Board extends JComponent implements KeyListener {
         }
     }
 
-    @Override
     public void keyReleased(KeyEvent e) {
 
     }
