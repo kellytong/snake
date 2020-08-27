@@ -77,7 +77,6 @@ public class Snake {
                 dots.add(new DotLocation(randomX, randomY));
 
                 growSnake();
-                System.out.println(snakePieces.size());
                 return;
             }
         }

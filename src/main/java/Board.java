@@ -85,8 +85,8 @@ public class Board extends JComponent implements KeyListener {
     private void gameEnd() {
         SnakePiece snakeHead = snake.getSnakePieces().get(0);
 
-        if (snakeHead.getX() > boardSize - main.BORDER_OFFSET || snakeHead.getX() < 0
-                || snakeHead.getY() > boardSize - main.BORDER_OFFSET * 3 || snakeHead.getY() < 0) {
+        if (snakeHead.getX() > boardSize - Main.BORDER_OFFSET || snakeHead.getX() < 0
+                || snakeHead.getY() > boardSize - Main.BORDER_OFFSET * 3 || snakeHead.getY() < 0) {
             isGameOver = true;
         } else {
             isGameOver = snake.touchesItself();

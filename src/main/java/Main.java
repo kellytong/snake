@@ -3,7 +3,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class main {
+public class Main {
     private static final int BOARD_SIZE = 500;
     private static final Color BOARD_COLOR = Color.BLACK;
     private static final int NUMBER_OF_DOTS = 5;
@@ -18,7 +18,7 @@ public class main {
         f.setSize(BOARD_SIZE,BOARD_SIZE);
         f.setResizable(false);
 
-        ArrayList<DotLocation> dotsList = new ArrayList<>();
+        ArrayList<DotLocation> dotsList = new ArrayList<DotLocation>();
         makeDots(dotsList);
 
         Board board = new Board(dotsList, BOARD_SIZE);
@@ -42,7 +42,6 @@ public class main {
             }
 
             dots.add(new DotLocation(randomX, randomY));
-            System.out.println("x:" + randomX + " y:" + randomY); // TODO delete
         }
     }
 }
